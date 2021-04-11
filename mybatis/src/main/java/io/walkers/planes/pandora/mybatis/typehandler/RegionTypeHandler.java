@@ -16,7 +16,7 @@ import java.sql.SQLException;
  *
  * @author planeswalker23
  */
-public class DemoTypeHandler implements TypeHandler<Region> {
+public class RegionTypeHandler implements TypeHandler<Region> {
 
     @Override
     public void setParameter(PreparedStatement preparedStatement, int i, Region region, JdbcType jdbcType) throws SQLException {
