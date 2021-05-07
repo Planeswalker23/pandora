@@ -1,4 +1,4 @@
-package io.walkers.planes.pandora.mybatis.quickstart;
+package io.walkers.planes.pandora.mybatis.typehandler;
 
 import io.walkers.planes.pandora.mybatis.common.User;
 import io.walkers.planes.pandora.mybatis.common.UserMapper;
@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * MyBatis demo of Annotation
+ * MyBatis demo of TypeHandler
  *
  * @author planeswalker23
  */
-public class MyBatisQuickStartOfAnnotationDemo {
+public class MyBatisTypeHandlerDemo {
 
     public static void main(String[] args) throws IOException {
         // 加载配置文件
@@ -26,11 +26,7 @@ public class MyBatisQuickStartOfAnnotationDemo {
         // 基于工厂模式构建 SqlSession 对象
         SqlSession sqlSession = sqlSessionFactory.openSession();
         // way1: 调用 sqlSession.selectOne 传入 statementId(mapper全路径+.方法名) + 参数查询数据库
-        User user = sqlSession.selectOne("io.walkers.planes.pandora.mybatis.common.UserMapper.selectUserByName", "root");
-        System.out.println("MyBatisQuickStartOfAnnotationDemo result of way1: " + user);
-
-        // way2: getMapper
-        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        System.out.println("MyBatisQuickStartOfAnnotationDemo result of way2: " + mapper.selectUserByName("root"));
+        User user = sqlSession.selectOne("io.walkers.planes.pandora.mybatis.common.UserMapper.selectUserById", 1);
+        System.out.println("MyBatisTypeHandlerDemo result: " + user);
     }
 }

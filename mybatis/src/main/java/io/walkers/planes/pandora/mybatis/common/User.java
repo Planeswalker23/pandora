@@ -1,4 +1,4 @@
-package io.walkers.planes.pandora.mybatis.quickstart.common;
+package io.walkers.planes.pandora.mybatis.common;
 
 /**
  * 用户模型
@@ -9,6 +9,8 @@ public class User {
 
     private Integer id;
     private String name;
+
+    private Region region;
 
     public Integer getId() {
         return id;
@@ -26,11 +28,20 @@ public class User {
         this.name = name;
     }
 
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", region=" + region +
                 '}';
     }
 }

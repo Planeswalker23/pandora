@@ -1,7 +1,6 @@
 package io.walkers.planes.pandora.mybatis.quickstart;
 
-import io.walkers.planes.pandora.mybatis.quickstart.common.User;
-import io.walkers.planes.pandora.mybatis.quickstart.common.UserMapper;
+import io.walkers.planes.pandora.mybatis.common.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -29,7 +28,7 @@ public class MyBatisConfigurationPriorityOfPropertiesDemo {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, properties);
         // 基于工厂模式构建 SqlSession 对象，执行查询方法
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        User user = sqlSession.selectOne("io.walkers.planes.pandora.mybatis.quickstart.common.UserMapper.selectUserById", 1);
-        System.out.println("MyBatisQuickStartOfXmlDemo result of way1: " + user);
+        User user = sqlSession.selectOne("io.walkers.planes.pandora.mybatis.common.UserMapper.selectUserById", 1);
+        System.out.println("MyBatisConfigurationPriorityOfPropertiesDemo result: " + user);
     }
 }

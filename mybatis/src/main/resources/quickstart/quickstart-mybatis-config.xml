@@ -7,7 +7,14 @@
     <properties resource="mysql-config.properties">
         <!-- 配置文件属性（properties）优先级：第三优先（最低） -->
         <property name="password" value="password"/>
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/> <!-- 启用默认值特性 -->
     </properties>
+
+    <typeHandlers>
+        <!-- 需要指定 javaType 和 jdbcType -->
+        <typeHandler javaType="io.walkers.planes.pandora.mybatis.common.Region" jdbcType="VARCHAR" handler="io.walkers.planes.pandora.mybatis.typehandler.RegionTypeHandler"/>
+    </typeHandlers>
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>

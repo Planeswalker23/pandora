@@ -1,7 +1,7 @@
 package io.walkers.planes.pandora.mybatis.typehandler;
 
 import com.alibaba.fastjson.JSON;
-import io.walkers.planes.pandora.mybatis.entity.Region;
+import io.walkers.planes.pandora.mybatis.common.Region;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 

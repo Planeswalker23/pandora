@@ -1,4 +1,4 @@
-package io.walkers.planes.pandora.mybatis.entity;
+package io.walkers.planes.pandora.mybatis.common;
 
 /**
  * 地区实体类
@@ -29,5 +29,13 @@ public class Region {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    @Override
+    public String toString() {
+        return "Region{" +
+                "country='" + country + '\'' +
+                ", area='" + area + '\'' +
+                '}';
     }
 }
