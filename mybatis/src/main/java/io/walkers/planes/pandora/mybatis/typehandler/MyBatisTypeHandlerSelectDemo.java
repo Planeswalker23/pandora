@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * MyBatis demo of TypeHandler
+ * MyBatis demo of TypeHandler select
  *
  * @author planeswalker23
  */
-public class MyBatisTypeHandlerDemo {
+public class MyBatisTypeHandlerSelectDemo {
 
     public static void main(String[] args) throws IOException {
         // 加载配置文件
@@ -26,7 +26,7 @@ public class MyBatisTypeHandlerDemo {
         // 基于工厂模式构建 SqlSession 对象
         SqlSession sqlSession = sqlSessionFactory.openSession();
         // way1: 调用 sqlSession.selectOne 传入 statementId(mapper全路径+.方法名) + 参数查询数据库
-        User user = sqlSession.selectOne("io.walkers.planes.pandora.mybatis.common.UserMapper.selectUserById", 1);
-        System.out.println("MyBatisTypeHandlerDemo result: " + user);
+        User user = sqlSession.selectOne("io.walkers.planes.pandora.mybatis.common.UserMapper.selectUserById", 2);
+        System.out.println("MyBatisTypeHandlerSelectDemo result: " + user);
     }
 }
