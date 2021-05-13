@@ -38,7 +38,7 @@ public class SingletonSerializableCheck {
         // 被检测的单例对象
         Object checkedSingletonObj = Singleton1.getInstance();
         // 文件路径
-        String filePath = "design-patterns/src/main/java/org/planeswalker/singleton/SingletonEnumCheck.dat";
+        String filePath = "design-patterns/src/main/java/io/walkers/planes/pandora/design/patterns/singleton/SingletonEnumCheck.dat";
         // 序列化单例对象
         writeEnum(checkedSingletonObj, filePath);
         // out：true，说明反序列化后，枚举类也是单例的；false，说明反序列化生成了新的对象
