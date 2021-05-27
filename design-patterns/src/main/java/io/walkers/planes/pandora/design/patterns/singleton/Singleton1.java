@@ -17,7 +17,12 @@ public class Singleton1 implements Serializable {
     private static Singleton1 instance = null;
 
     // 同时声明类的构造方法为private，使得无法在此类外进行实例化
-    private Singleton1() { }
+    private Singleton1() {
+        // 防止反射破坏单例
+        if (instance == null) {
+            throw new RuntimeException("单例对象已存在!");
+        }
+    }
 
     // 获得单例对象的方法
     public static Singleton1 getInstance() {
