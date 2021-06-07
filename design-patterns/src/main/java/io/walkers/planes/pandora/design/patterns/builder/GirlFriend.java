@@ -1,7 +1,5 @@
 package io.walkers.planes.pandora.design.patterns.builder;
 
-import java.math.BigDecimal;
-
 /**
  * "女朋友" 类
  *
@@ -28,13 +26,11 @@ public class GirlFriend {
     }
 
     public GirlFriend(GirlFriendBuilder builder) {
-        this.sexual = builder.sexual;
-        this.age = builder.age;
-        this.hire = builder.hire;
-        this.hobby = builder.hobby;
+        this.sexual = builder.getSexual();
+        this.age = builder.getAge();
+        this.hire = builder.getHire();
+        this.hobby = builder.getHobby();
     }
-
-
 
     public static void main(String[] args) {
         GirlFriend myGirl = new GirlFriend(18, "长发及腰", "打球");
@@ -89,72 +85,5 @@ public class GirlFriend {
                 ", hire='" + hire + '\'' +
                 ", hobby='" + hobby + '\'' +
                 '}';
-    }
-
-    public static class GirlFriendBuilder {
-        /** 性别 */
-        private String sexual;
-        /** 年龄 */
-        private Integer age;
-        /** 发型 */
-        private String hire;
-        /** 爱好 */
-        private String hobby;
-
-        public GirlFriendBuilder setSexual(String sexual) {
-            this.sexual = sexual;
-            return this;
-        }
-
-        public GirlFriendBuilder setAge(Integer age) {
-            this.age = age;
-            return this;
-        }
-
-        public GirlFriendBuilder setHire(String hire) {
-            this.hire = hire;
-            return this;
-        }
-
-        public GirlFriendBuilder setHobby(String hobby) {
-            this.hobby = hobby;
-            return this;
-        }
-
-        public String getSexual() {
-            return sexual;
-        }
-
-        public Integer getAge() {
-            return age;
-        }
-
-        public String getHire() {
-            return hire;
-        }
-
-        public String getHobby() {
-            return hobby;
-        }
-
-        /**
-         * build 方法，作为 GirlFriendBuilder -> GirlFriend 转换的方法，调用 GirlFriend 的全参构造方法
-         * @return GirlFriend
-         */
-//        public GirlFriend build() {
-//            return new GirlFriend(this);
-//        }
-
-        public GirlFriend build() {
-            // 性别、年龄必填
-            if (this.sexual == null || this.age == null) {
-                throw new IllegalArgumentException("GirlFriend sexual is null");
-            }
-            // 若设置发型属性，爱好属性也需要必填
-            if (this.hire != null && this.hobby == null) {
-                throw new IllegalArgumentException("GirlFriend hire is not null but hobby is null");
-            }
-            return new GirlFriend(this);
-        }
     }
 }
