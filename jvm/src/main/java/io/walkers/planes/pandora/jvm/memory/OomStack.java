@@ -5,7 +5,7 @@ package io.walkers.planes.pandora.jvm.memory;
  * -Xss2M: 每个线程的栈大小为2M
  * 别运行，会卡死
  *
- * @author fanyidong
+ * @author planeswalker23
  */
 public class OomStack {
 

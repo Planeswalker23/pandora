@@ -4,7 +4,7 @@ package io.walkers.planes.pandora.jvm.memory;
  * 模拟虚拟机栈及本地方法栈的溢出1
  * -Xss160k: 每个线程的栈大小为160k
  *
- * @author fanyidong
+ * @author planeswalker23
  */
 public class StackOverflowError {
 

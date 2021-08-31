@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * ThreadLocal示例
- * @author fanyidong
+ * @author planeswalker23
  * @date Created in 2020/11/29
  */
 public class TestThreadLocal {

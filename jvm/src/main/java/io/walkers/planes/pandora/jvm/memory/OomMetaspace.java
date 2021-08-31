@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 /**
  * 模拟元空间内存溢出
  *
- * @author fanyidong
+ * @author planeswalker23
  */
 public class OomMetaspace {
 
