@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 自动装配 -->
+<!--    <bean id="vipCustomer" class="ioc.bean.autowire.VipCustomer" autowire="byName"/>-->
+    <bean id="vipCustomer" class="ioc.bean.autowire.VipCustomer" autowire="byType"/>
+
+    <bean id="user" class="ioc.bean.User">
+        <property name="name" value="自动装配User"/>
+        <property name="age" value="18"/>
+    </bean>
+
+    <!-- byType 自动装配时若存在两个类型相同的 Bean 会报错: NoUniqueBeanDefinitionException -->
+<!--    <bean id="user2" class="ioc.bean.User">-->
+<!--        <property name="name" value="自动装配User2"/>-->
+<!--        <property name="age" value="18"/>-->
+<!--    </bean>-->
+
+</beans>
