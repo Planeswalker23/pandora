@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- setter 方式注入属性 -->
+    <bean id="injectBySetter" class="ioc.bean.User">
+        <property name="name" value="setter"/>
+        <property name="age" value="18"/>
+    </bean>
+
+    <!-- 有参构造器方式注入属性 -->
+    <bean id="injectByConstructor" class="ioc.bean.User">
+        <constructor-arg name="name" value="constructor"/>
+    </bean>
+
+    <!-- 注入空值/特殊符号属性 -->
+    <bean id="injectSpecialField" class="ioc.bean.User">
+        <!-- 注入特殊符号 -->
+        <property name="name">
+            <value><![CDATA[<<特殊符号>>]]></value>
+        </property>
+        <!-- 注入空值 -->
+        <property name="age">
+            <null/>
+        </property>
+    </bean>
+
+    <!-- 注入外部 Bean -->
+    <bean id="injectOuterBean" class="ioc.bean.Customer">
+        <property name="user" ref="injectBySetter"/>
+        <property name="customerNo" value="1"/>
+    </bean>
+
+    <!-- 注入内部 Bean -->
+    <bean id="injectInnerBean" class="ioc.bean.Customer">
+        <property name="user">
+            <bean class="ioc.bean.User">
+                <property name="name" value="user4"/>
+                <property name="age" value="18"/>
+            </bean>
+        </property>
+        <property name="customerNo" value="2"/>
+    </bean>
+
+    <!-- 通过级联赋值注入属性 -->
+    <!-- 级联赋值即在前篇所说的注入外部bean的基础上, 可以通过对象.属性的方式直接注入属性 -->
+    <bean id="injectByCascade" class="ioc.bean.Customer">
+        <property name="user" ref="injectBySetter"/>
+        <property name="user.name" value="级联赋值"/>
+        <property name="user.age" value="18"/>
+        <property name="customerNo" value="2"/>
+    </bean>
+
+    <!-- 注入集合类型 -->
+    <bean id="injectCollection" class="ioc.bean.UserCollection">
+        <property name="names">
+            <array>
+                <value>1号用户</value>
+                <value>2号用户</value>
+            </array>
+        </property>
+        <property name="ages">
+            <list>
+                <value>18</value>
+                <value>20</value>
+            </list>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="1号用户" value="18"/>
+                <entry key="2号用户" value="20"/>
+            </map>
+        </property>
+        <property name="users">
+            <list>
+                <ref bean="injectBySetter"/>
+                <ref bean="injectByConstructor"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -17,6 +17,8 @@
         <module>redis</module>
         <module>mq</module>
         <module>mybatis</module>
+        <module>spring</module>
+        <module>spring/spring5-shangguigu</module>
     </modules>
 
     <properties>
