@@ -4,11 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Bean 生命周期 -->
-    <bean id="userLifeCycle" class="io.walkers.planes.pandora.ioc.lifecycle.UserLifeCycle" init-method="init" destroy-method="destroy">
+    <bean id="userLifeCycle" class="io.walkers.planes.pandora.spring.ioc.lifecycle.UserLifeCycle" init-method="init" destroy-method="destroy">
         <property name="name" value="生命周期Bean"/>
     </bean>
 
     <!-- BeanPostProcessor 后置处理器 -->
-    <bean id="beanPostProcessor" class="io.walkers.planes.pandora.ioc.lifecycle.LifeCycleBeanPostProcessor"/>
+    <bean id="beanPostProcessor" class="io.walkers.planes.pandora.spring.ioc.lifecycle.LifeCycleBeanPostProcessor"/>
 
 </beans>

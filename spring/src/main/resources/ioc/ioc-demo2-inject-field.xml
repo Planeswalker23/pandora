@@ -4,17 +4,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- setter 方式注入属性 -->
-    <bean id="injectBySetter" class="io.walkers.planes.pandora.ioc.inject.User">
+    <bean id="injectBySetter" class="io.walkers.planes.pandora.spring.ioc.inject.User">
         <property name="name" value="基于 Setter 方法注入属性"/>
     </bean>
 
     <!-- 有参构造器方式注入属性 -->
-    <bean id="injectByConstructor" class="io.walkers.planes.pandora.ioc.inject.User">
+    <bean id="injectByConstructor" class="io.walkers.planes.pandora.spring.ioc.inject.User">
         <constructor-arg name="name" value="constructor"/>
     </bean>
 
     <!-- 注入空值/特殊符号属性 -->
-    <bean id="injectSpecialField" class="io.walkers.planes.pandora.ioc.inject.User">
+    <bean id="injectSpecialField" class="io.walkers.planes.pandora.spring.ioc.inject.User">
         <!-- 注入特殊符号 -->
         <property name="name">
             <value><![CDATA[<<特殊符号>>]]></value>
@@ -26,15 +26,15 @@
     </bean>
 
     <!-- 注入外部 Bean -->
-    <bean id="injectOuterBean" class="io.walkers.planes.pandora.ioc.inject.Customer">
+    <bean id="injectOuterBean" class="io.walkers.planes.pandora.spring.ioc.inject.Customer">
         <property name="user" ref="injectBySetter"/>
         <property name="customerNo" value="1"/>
     </bean>
 
     <!-- 注入内部 Bean -->
-    <bean id="injectInnerBean" class="io.walkers.planes.pandora.ioc.inject.Customer">
+    <bean id="injectInnerBean" class="io.walkers.planes.pandora.spring.ioc.inject.Customer">
         <property name="user">
-            <bean class="io.walkers.planes.pandora.ioc.inject.User">
+            <bean class="io.walkers.planes.pandora.spring.ioc.inject.User">
                 <property name="name" value="user4"/>
                 <property name="age" value="18"/>
             </bean>
@@ -44,7 +44,7 @@
 
     <!-- 通过级联赋值注入属性 -->
     <!-- 级联赋值即在前篇所说的注入外部bean的基础上, 可以通过对象.属性的方式直接注入属性 -->
-    <bean id="injectByCascade" class="io.walkers.planes.pandora.ioc.inject.Customer">
+    <bean id="injectByCascade" class="io.walkers.planes.pandora.spring.ioc.inject.Customer">
         <property name="user" ref="injectBySetter"/>
         <property name="user.name" value="级联赋值"/>
         <property name="user.age" value="18"/>
@@ -52,7 +52,7 @@
     </bean>
 
     <!-- 注入集合类型 -->
-    <bean id="injectCollection" class="io.walkers.planes.pandora.ioc.inject.UserCollection">
+    <bean id="injectCollection" class="io.walkers.planes.pandora.spring.ioc.inject.UserCollection">
         <property name="names">
             <array>
                 <value>1号用户</value>

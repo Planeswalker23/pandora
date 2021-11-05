@@ -5,9 +5,9 @@
 
     <!-- 自动装配 -->
 <!--    <bean id="vipCustomer" class="ioc.bean.autowire.VipCustomer" autowire="byName"/>-->
-    <bean id="vipCustomer" class="io.walkers.planes.pandora.ioc.autowire.VipCustomer" autowire="byType"/>
+    <bean id="vipCustomer" class="io.walkers.planes.pandora.spring.ioc.autowire.VipCustomer" autowire="byType"/>
 
-    <bean id="user" class="io.walkers.planes.pandora.ioc.autowire.User">
+    <bean id="user" class="io.walkers.planes.pandora.spring.ioc.autowire.User">
         <property name="name" value="自动装配User"/>
     </bean>
 

@@ -4,6 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- FactoryBean -->
-    <bean id="userFactoryBean" class="io.walkers.planes.pandora.ioc.factorybean.UserFactoryBean"/>
+    <bean id="userFactoryBean" class="io.walkers.planes.pandora.spring.ioc.factorybean.UserFactoryBean"/>
 
 </beans>

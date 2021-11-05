@@ -4,12 +4,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 单例 Bean -->
-    <bean id="singletonUser" class="io.walkers.planes.pandora.ioc.scpoe.User" scope="singleton">
+    <bean id="singletonUser" class="io.walkers.planes.pandora.spring.ioc.scpoe.User" scope="singleton">
         <property name="name" value="单例Bean"/>
     </bean>
 
     <!-- 原型 Bean -->
-    <bean id="prototypeUser" class="io.walkers.planes.pandora.ioc.scpoe.User" scope="prototype">
+    <bean id="prototypeUser" class="io.walkers.planes.pandora.spring.ioc.scpoe.User" scope="prototype">
         <property name="name" value="原型Bean"/>
     </bean>
 

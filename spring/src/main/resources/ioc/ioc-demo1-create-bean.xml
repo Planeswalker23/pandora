@@ -4,6 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 创建 Bean -->
-    <bean id="user" class="io.walkers.planes.pandora.ioc.create.User"/>
+    <bean id="user" class="io.walkers.planes.pandora.spring.ioc.create.User"/>
 
 </beans>
