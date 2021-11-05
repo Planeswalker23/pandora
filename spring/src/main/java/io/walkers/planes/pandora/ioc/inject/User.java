@@ -3,7 +3,7 @@ package io.walkers.planes.pandora.ioc.inject;
 /**
  * 基于 XML 配置文件创建对象，基于 setter 方法注入属性
  *
- * @author 范逸东(东稚)
+ * @author planeswalker23
  */
 public class User {
 

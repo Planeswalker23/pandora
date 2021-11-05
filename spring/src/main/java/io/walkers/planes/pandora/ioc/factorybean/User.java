@@ -1,4 +1,4 @@
-package io.walkers.planes.pandora.ioc.create;
+package io.walkers.planes.pandora.ioc.factorybean;
 
 /**
  * 基于 XML 配置文件创建对象
