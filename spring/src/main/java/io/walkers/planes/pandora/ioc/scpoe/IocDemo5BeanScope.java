@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author planeswalker23
  * @see org.springframework.beans.factory.FactoryBean
  */
-public class IocDemo4BeanScope {
+public class IocDemo5BeanScope {
 
     @Test
     public void beanScope() {
