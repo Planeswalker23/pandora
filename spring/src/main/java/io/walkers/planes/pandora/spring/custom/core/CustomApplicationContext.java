@@ -9,6 +9,8 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,6 +27,7 @@ public class CustomApplicationContext {
     private ConcurrentHashMap<String, Object> singletonObjects = new ConcurrentHashMap<>();
     // Bean定义
     private ConcurrentHashMap<String, CustomBeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
+    private List<CustomBeanPostProcessor> beanPostProcessors = new ArrayList<>();
 
     public CustomApplicationContext(Class configClass) {
         this.configClass = configClass;
@@ -91,6 +94,17 @@ public class CustomApplicationContext {
                 // 判断类是否被标记为 Spring Bean
                 if (clazz.isAnnotationPresent(CustomComponent.class)) {
                     System.out.println("[DEBUG MESSAGE] 类 " + clazz.getName() + " 已被注解 @CustomComponent 标记");
+                    
+                    // 扫描注册 BeanPostProcessor
+                    if (CustomBeanPostProcessor.class.isAssignableFrom(clazz)) {
+                        try {
+                            CustomBeanPostProcessor beanPostProcessor = (CustomBeanPostProcessor) clazz.getDeclaredConstructor().newInstance();
+                            beanPostProcessors.add(beanPostProcessor);
+                        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    
                     // 解析注解生成 BeanDefinition
                     CustomBeanDefinition customBeanDefinition = new CustomBeanDefinition();
                     customBeanDefinition.setClazz(clazz);
@@ -151,9 +165,19 @@ public class CustomApplicationContext {
                 ((CustomBeanNameAware) instance).setBeanName(beanName);
             }
 
+            // 初始化前置处理
+            for (CustomBeanPostProcessor beanPostProcessor : beanPostProcessors) {
+                beanPostProcessor.postProcessBeforeInitialization(instance, beanName);
+            }
+
             // 初始化接口
             if (instance instanceof CustomInitializingBean) {
                 ((CustomInitializingBean) instance).afterPropertiesSet();
+            }
+
+            // 初始化后置处理
+            for (CustomBeanPostProcessor beanPostProcessor : beanPostProcessors) {
+                beanPostProcessor.postProcessAfterInitialization(instance, beanName);
             }
 
 
