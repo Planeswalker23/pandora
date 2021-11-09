@@ -8,7 +8,6 @@ package io.walkers.planes.pandora.spring.custom.core;
 public class CustomBeanDefinition {
 
     private Class clazz;
-    private String beanName;
     private BeanScope scope;
 
     public Class getClazz() {
@@ -17,14 +16,6 @@ public class CustomBeanDefinition {
 
     public void setClazz(Class clazz) {
         this.clazz = clazz;
-    }
-
-    public String getBeanName() {
-        return beanName;
-    }
-
-    public void setBeanName(String beanName) {
-        this.beanName = beanName;
     }
 
     public BeanScope getScope() {

@@ -1,12 +1,15 @@
 package io.walkers.planes.pandora.spring.custom.core;
 
+import io.walkers.planes.pandora.spring.custom.core.annotation.CustomAutowired;
 import io.walkers.planes.pandora.spring.custom.core.annotation.CustomComponent;
 import io.walkers.planes.pandora.spring.custom.core.annotation.CustomComponentScan;
 import io.walkers.planes.pandora.spring.custom.core.annotation.CustomScope;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -23,29 +26,31 @@ public class CustomApplicationContext {
     // Bean定义
     private ConcurrentHashMap<String, CustomBeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
-    public CustomApplicationContext(Class configClass) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public CustomApplicationContext(Class configClass) {
         this.configClass = configClass;
 
         // 解析配置类：ComponentScan 注解 -> 获取扫描路径 -> 扫描 -> 注册 BeanDefinition
         this.scan(configClass);
 
         // 创建并注册单例 Bean
-        for (CustomBeanDefinition beanDefinition : beanDefinitionMap.values()) {
+        for (Map.Entry<String, CustomBeanDefinition> entry : beanDefinitionMap.entrySet()) {
+            String beanName = entry.getKey();
+            CustomBeanDefinition beanDefinition = entry.getValue();
             if (BeanScope.SINGLETON.equals(beanDefinition.getScope())) {
-                Object bean = this.createBean(beanDefinition);
-                singletonObjects.put(beanDefinition.getBeanName(), bean);
+                Object bean = this.createBean(beanName, beanDefinition);
+                singletonObjects.put(beanName, bean);
             }
         }
     }
 
-    public Object getBean(String beanName) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public Object getBean(String beanName) {
         if (beanDefinitionMap.containsKey(beanName)) {
             CustomBeanDefinition customBeanDefinition = beanDefinitionMap.get(beanName);
             if (BeanScope.SINGLETON.equals(customBeanDefinition.getScope())) {
                 Object bean = singletonObjects.get(beanName);
                 return bean;
             } else {
-                Object bean = this.createBean(customBeanDefinition);
+                Object bean = this.createBean(beanName, customBeanDefinition);
                 return bean;
             }
         } else {
@@ -53,13 +58,13 @@ public class CustomApplicationContext {
         }
     }
 
-    private void scan(Class configClass) throws ClassNotFoundException {
+    private void scan(Class configClass) {
         // ComponentScan 注解 -> 获取扫描路径 -> 扫描 -> 注册 BeanDefinition
         CustomComponentScan customComponentScan = (CustomComponentScan) configClass.getDeclaredAnnotation(CustomComponentScan.class);
 
         // 获取扫描路径
         String path = customComponentScan.value();
-        System.out.println("@CustomComponentScan 配置的扫描路径是: " + path);
+        System.out.println("[DEBUG MESSAGE] @CustomComponentScan 配置的扫描路径是: " + path);
         String resourcePath = this.classPath2ResourcePath(path);
 
         // 执行扫描逻辑
@@ -73,20 +78,25 @@ public class CustomApplicationContext {
             // 遍历文件夹
             // TODO 后续需要考虑文件夹下还有文件夹的情况
             for (File fileTarget : files) {
-                System.out.println("资源文件内容:" + fileTarget);
+                System.out.println("[DEBUG MESSAGE] 资源文件内容:" + fileTarget);
                 // 获取类全限定路径名，然后加载类
                 String className = this.absolutePath2ClassPath(fileTarget.getAbsolutePath());
-                Class<?> clazz = classLoader.loadClass(className);
+                Class<?> clazz = null;
+                try {
+                    clazz = classLoader.loadClass(className);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("[DEBUG MESSAGE] Load Class " + className + " Error");
+                }
                 // 判断类是否被标记为 Spring Bean
                 if (clazz.isAnnotationPresent(CustomComponent.class)) {
-                    System.out.println("类 " + clazz.getName() + " 已被注解 @CustomComponent 标记");
+                    System.out.println("[DEBUG MESSAGE] 类 " + clazz.getName() + " 已被注解 @CustomComponent 标记");
                     // 解析注解生成 BeanDefinition
                     CustomBeanDefinition customBeanDefinition = new CustomBeanDefinition();
                     customBeanDefinition.setClazz(clazz);
                     // bean 名称
                     CustomComponent customComponentAnnotation = clazz.getDeclaredAnnotation(CustomComponent.class);
                     String beanName = customComponentAnnotation.value();
-                    customBeanDefinition.setBeanName(beanName);
                     // bean 作用域
                     if (clazz.isAnnotationPresent(CustomScope.class)) {
                         CustomScope customScopeAnnotation = clazz.getDeclaredAnnotation(CustomScope.class);
@@ -108,7 +118,7 @@ public class CustomApplicationContext {
         // TODO 转化方法更具拓展性
         String className = target.substring(target.indexOf("io"), target.indexOf(".class"));
         className = className.replace(File.separatorChar, '.');
-        System.out.println("原字符串 " + target + " 已转化为 " + className);
+        System.out.println("[DEBUG MESSAGE] 原字符串 " + target + " 已转化为 " + className);
         return className;
     }
 
@@ -117,13 +127,41 @@ public class CustomApplicationContext {
             return target;
         }
         String resourceName = target.replace('.', File.separatorChar);
-        System.out.println("原字符串 " + target + " 已转化为 " + resourceName);
+        System.out.println("[DEBUG MESSAGE] 原字符串 " + target + " 已转化为 " + resourceName);
         return resourceName;
     }
 
-    private Object createBean(CustomBeanDefinition beanDefinition) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private Object createBean(String beanName, CustomBeanDefinition beanDefinition) {
         Class clazz = beanDefinition.getClazz();
-        Object instance = clazz.getDeclaredConstructor().newInstance();
-        return instance;
+        try {
+            // 创建 Bean
+            Object instance = clazz.getDeclaredConstructor().newInstance();
+            // 给属性进行依赖注入
+            // TODO 循环依赖如何解决
+            for (Field declaredField : clazz.getDeclaredFields()) {
+                if (declaredField.isAnnotationPresent(CustomAutowired.class)) {
+                    Object bean = this.getBean(declaredField.getName());
+                    declaredField.setAccessible(true);
+                    declaredField.set(instance, bean);
+                }
+            }
+
+            // Aware 回调
+            if (instance instanceof CustomBeanNameAware) {
+                ((CustomBeanNameAware) instance).setBeanName(beanName);
+            }
+
+            // 初始化接口
+            if (instance instanceof CustomInitializingBean) {
+                ((CustomInitializingBean) instance).afterPropertiesSet();
+            }
+
+
+            return instance;
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+            System.out.println("[DEBUG MESSAGE] Create Bean " + beanDefinition + " Error");
+            return null;
+        }
     }
 }
