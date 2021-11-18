@@ -8,12 +8,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Bean 实例化示例
  *
  * @author planeswalker23
- * @date 2021/11/16
+ * @date 2021/11/17
  */
 public class BeanInstantiationDemo {
 
     @Test
-    public void instantiateBeanByStaticMethod() {
+    public void instantiateBean() {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean/bean-instantiation-context.xml");
         User userByStaticMethod = applicationContext.getBean("userByStaticMethod", User.class);
         User userByInstanceMethod = applicationContext.getBean("userByInstanceMethod", User.class);
