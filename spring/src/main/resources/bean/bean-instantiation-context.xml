@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 静态方法实例化 Bean -->
+    <bean id="userByStaticMethod" class="io.walkers.planes.pandora.spring.bean.definition.User" factory-method="createUser"/>
+
+    <bean id="userFactory" class="io.walkers.planes.pandora.spring.bean.factory.UserFactory"/>
+    <!-- 实例（Bean）方法实例化 Bean -->
+    <bean id="userByInstanceMethod" factory-bean="userFactory" factory-method="createUserByUserFactory"/>
+
+    <!-- FactoryBean实例化 Bean -->
+    <bean id="userByFactoryBean" class="io.walkers.planes.pandora.spring.bean.factory.UserFactoryBean" />
+
+</beans>

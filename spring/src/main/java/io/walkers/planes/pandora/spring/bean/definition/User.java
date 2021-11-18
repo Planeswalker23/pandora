@@ -11,6 +11,11 @@ public class User {
     private Integer id;
     private String name;
 
+    // 静态方法实例化 Bean
+    public static User createUser() {
+        return new User();
+    }
+
     public Integer getId() {
         return id;
     }
@@ -29,7 +34,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return super.toString() + " User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
