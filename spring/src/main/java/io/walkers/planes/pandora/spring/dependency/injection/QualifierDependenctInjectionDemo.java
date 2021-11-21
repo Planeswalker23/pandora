@@ -1,5 +1,6 @@
 package io.walkers.planes.pandora.spring.dependency.injection;
 
+import io.walkers.planes.pandora.spring.dependency.injection.annotation.CustomQualifier;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +28,9 @@ public class QualifierDependenctInjectionDemo {
     @Qualifier
     private List<User> qualifierUsers;
     @Autowired
+    @CustomQualifier
+    private List<User> customQualifierUsers;
+    @Autowired
     @Qualifier("custom")
     private List<User> qualifierCustomUsers;
 
@@ -37,6 +41,7 @@ public class QualifierDependenctInjectionDemo {
         System.out.println("user = " + bean.user);
         System.out.println("allUsers = " + bean.allUsers);
         System.out.println("qualifierUsers = " + bean.qualifierUsers);
+        System.out.println("customQualifierUsers = " + bean.customQualifierUsers);
         System.out.println("qualifierCustomUsers = " + bean.qualifierCustomUsers);
 
     }
@@ -57,6 +62,12 @@ public class QualifierDependenctInjectionDemo {
     @Qualifier
     public User user3() {
         return new User("user3");
+    }
+
+    @Bean
+    @CustomQualifier
+    public User user4() {
+        return new User("user4");
     }
 
     public static class User {
