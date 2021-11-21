@@ -18,9 +18,10 @@ import java.util.List;
  * @date 2021/11/21
  */
 @Configuration
-public class QualifierDependenctInjectionDemo {
+public class QualifierDependencyInjectionDemo {
 
     @Autowired
+//    @CustomAutowired
     private User user;
     @Autowired
     private List<User> allUsers;
@@ -36,8 +37,8 @@ public class QualifierDependenctInjectionDemo {
 
     @Test
     public void qualifier() {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(QualifierDependenctInjectionDemo.class);
-        QualifierDependenctInjectionDemo bean = applicationContext.getBean(QualifierDependenctInjectionDemo.class);
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(QualifierDependencyInjectionDemo.class);
+        QualifierDependencyInjectionDemo bean = applicationContext.getBean(QualifierDependencyInjectionDemo.class);
         System.out.println("user = " + bean.user);
         System.out.println("allUsers = " + bean.allUsers);
         System.out.println("qualifierUsers = " + bean.qualifierUsers);
