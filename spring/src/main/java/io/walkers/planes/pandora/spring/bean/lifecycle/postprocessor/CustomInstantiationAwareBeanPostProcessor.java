@@ -45,6 +45,9 @@ public class CustomInstantiationAwareBeanPostProcessor implements InstantiationA
         return InstantiationAwareBeanPostProcessor.super.postProcessAfterInstantiation(bean, beanName);
     }
 
+    /**
+     * 赋值前置处理
+     */
     @Override
     public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) throws BeansException {
         if (User.class.isAssignableFrom(bean.getClass())) {
@@ -64,5 +67,33 @@ public class CustomInstantiationAwareBeanPostProcessor implements InstantiationA
 //            return mutablePropertyValues;
         }
         return InstantiationAwareBeanPostProcessor.super.postProcessProperties(pvs, bean, beanName);
+    }
+
+    /**
+     * 初始化前置处理
+     */
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        if (User.class.isAssignableFrom(bean.getClass())) {
+            System.out.println("User 对象初始化前置处理");
+            ((User) bean).setName("初始化前置处理");
+        }
+        // 可返回新的对象
+//        return new User();
+        return InstantiationAwareBeanPostProcessor.super.postProcessBeforeInitialization(bean, beanName);
+    }
+
+    /**
+     * 初始化后置处理
+     */
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        if (User.class.isAssignableFrom(bean.getClass())) {
+            System.out.println("User 对象初始化后置处理");
+            ((User) bean).setName("初始化后置处理");
+        }
+        // 可返回新的对象
+//        return new User();
+        return InstantiationAwareBeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
     }
 }
