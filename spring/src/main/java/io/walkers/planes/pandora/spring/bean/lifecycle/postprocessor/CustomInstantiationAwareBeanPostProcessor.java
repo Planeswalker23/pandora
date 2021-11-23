@@ -2,6 +2,8 @@ package io.walkers.planes.pandora.spring.bean.lifecycle.postprocessor;
 
 import io.walkers.planes.pandora.spring.bean.lifecycle.User;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.MutablePropertyValues;
+import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 
 /**
@@ -43,5 +45,24 @@ public class CustomInstantiationAwareBeanPostProcessor implements InstantiationA
         return InstantiationAwareBeanPostProcessor.super.postProcessAfterInstantiation(bean, beanName);
     }
 
+    @Override
+    public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+        if (User.class.isAssignableFrom(bean.getClass())) {
+            System.out.println("User 对象赋值前置处理开始-----");
+            // 原始值
+            pvs.stream().forEach(propertyValue -> System.out.println("PropertyValue 对象 key=" + propertyValue.getName() + ", value=" + propertyValue.getValue()));
 
+            // PropertyValues 类不可修改，可转型为 MutablePropertyValues
+            // 同时可对转型后的对象进行修改，注入属性用以改变赋值结果
+            MutablePropertyValues modifiedPvs = (MutablePropertyValues) pvs;
+            modifiedPvs.add("name", "对象赋值前置处理v1");
+
+            // 若返回此 PropertyValues 对象，赋值将使用此对象中的内容
+            MutablePropertyValues mutablePropertyValues = new MutablePropertyValues();
+            mutablePropertyValues.add("name", "对象赋值前置处理v2");
+            System.out.println("User 对象赋值前置处理结束-----");
+//            return mutablePropertyValues;
+        }
+        return InstantiationAwareBeanPostProcessor.super.postProcessProperties(pvs, bean, beanName);
+    }
 }
