@@ -2,6 +2,8 @@ package io.walkers.planes.pandora.spring.bean.lifecycle;
 
 import io.walkers.planes.pandora.spring.bean.lifecycle.postprocessor.CustomInstantiationAwareBeanPostProcessor;
 import org.junit.Test;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 
@@ -13,17 +15,18 @@ import org.springframework.context.annotation.Bean;
  */
 public class SpringBeanLifecycleDemo {
 
-    @Bean
-    public User user() {
-        return new User("生命周期");
-    }
-
     @Test
     public void lifecycle() {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
 
         // 注册 BeanPostProcessor
         applicationContext.getBeanFactory().addBeanPostProcessor(new CustomInstantiationAwareBeanPostProcessor());
+
+        // 注册 BeanDefinition
+        // 使用 @Bean 声明 User 对象时 CustomInstantiationAwareBeanPostProcessor.postProcessAfterInstantiation 未生效
+        BeanDefinitionBuilder userBeanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(User.class);
+        userBeanDefinitionBuilder.addPropertyValue("name", "生命周期");
+        applicationContext.registerBeanDefinition("userBeanDefinition", userBeanDefinitionBuilder.getBeanDefinition());
 
         applicationContext.register(SpringBeanLifecycleDemo.class);
         applicationContext.refresh();

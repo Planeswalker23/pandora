@@ -13,6 +13,18 @@ public class User {
         System.out.println("User 对象正在实例化");
     }
 
+    public User() {
+        System.out.println("User 对象正在基于无参构造器实例化");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "User{" +

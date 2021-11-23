@@ -27,10 +27,18 @@ public class CustomInstantiationAwareBeanPostProcessor implements InstantiationA
         return InstantiationAwareBeanPostProcessor.super.postProcessBeforeInstantiation(beanClass, beanName);
     }
 
+    /**
+     * 实例化后置处理:
+     * 1. 若返回为 true, 使用原始 Bean 定义(xml, 注解等)时赋予对象的属性值
+     * 2. 若返回为 false, 则会则会忽略原始 Bean 定义时赋予对象的属性值，并使用当前方法中的赋值
+     */
     @Override
     public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
         if (User.class.isAssignableFrom(bean.getClass())) {
             System.out.println("User 对象实例化后置处理");
+            // 若返回为 false，则会忽略原始 Bean 定义时赋予对象的属性值，并使用当前方法中的赋值
+//            ((User) bean).setName("实例化后置处理");
+//            return false;
         }
         return InstantiationAwareBeanPostProcessor.super.postProcessAfterInstantiation(bean, beanName);
     }
