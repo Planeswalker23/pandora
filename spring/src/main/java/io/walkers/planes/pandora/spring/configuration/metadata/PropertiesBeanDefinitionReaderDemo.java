@@ -3,6 +3,10 @@ package io.walkers.planes.pandora.spring.configuration.metadata;
 import org.junit.Test;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.EncodedResource;
 
 /**
  * properties 文件生成 BeanDefinition 示例
@@ -16,7 +20,12 @@ public class PropertiesBeanDefinitionReaderDemo {
     public void reader() {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         PropertiesBeanDefinitionReader beanDefinitionReader = new PropertiesBeanDefinitionReader(beanFactory);
-        int definitions = beanDefinitionReader.loadBeanDefinitions("configuration.metadata/user.properties");
+
+        ResourceLoader resourceLoader = new DefaultResourceLoader();
+        Resource resource = resourceLoader.getResource("configuration.metadata/user.properties");
+        EncodedResource encodedResource = new EncodedResource(resource, "UTF-8");
+
+        int definitions = beanDefinitionReader.loadBeanDefinitions(encodedResource);
         System.out.println("加载 BeanDefinition 数量 = " + definitions);
 
         User user = beanFactory.getBean(User.class);
