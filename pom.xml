@@ -18,6 +18,7 @@
         <module>mq</module>
         <module>mybatis</module>
         <module>spring</module>
+        <module>algorithm</module>
     </modules>
 
     <properties>
