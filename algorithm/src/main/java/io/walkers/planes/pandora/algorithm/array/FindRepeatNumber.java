@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 剑指 Offer 03. 数组中重复的数字 <a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">...</a>
+ * <a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">
+ * 剑指 Offer 03. 数组中重复的数字
+ * </a>
  *
  * @author planeswalker23
  * @date 2022/1/16
