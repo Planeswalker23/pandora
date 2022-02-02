@@ -5,7 +5,7 @@ import io.walkers.planes.pandora.design.patterns.decorator.v2.conponent.MilkyTea
 /**
  * PlanesWalker 自制奶茶
  *
- * @author 范逸东(东稚)
+ * @author planeswalker23
  */
 public abstract class CustomMilkyTea {
 

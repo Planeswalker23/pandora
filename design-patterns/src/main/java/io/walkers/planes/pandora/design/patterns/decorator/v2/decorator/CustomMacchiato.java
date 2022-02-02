@@ -5,7 +5,7 @@ import io.walkers.planes.pandora.design.patterns.decorator.v2.conponent.MilkyTea
 /**
  * 自制玛奇朵
  *
- * @author 范逸东(东稚)
+ * @author planeswalker23
  */
 public class CustomMacchiato extends CustomMilkyTea {
 

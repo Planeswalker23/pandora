@@ -3,7 +3,7 @@ package io.walkers.planes.pandora.design.patterns.decorator.v2.conponent;
 /**
  * 玛奇朵
  *
- * @author 范逸东(东稚)
+ * @author planeswalker23
  */
 public class Macchiato extends MilkyTea {
     @Override
