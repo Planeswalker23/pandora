@@ -3,7 +3,7 @@ package io.walkers.planes.pandora.design.patterns.flyweight;
 /**
  * 订单信息
  *
- * @author 范逸东(东稚)
+ * @author Planeswalker23
  */
 public class OrderInfo {
     // 待付款订单数

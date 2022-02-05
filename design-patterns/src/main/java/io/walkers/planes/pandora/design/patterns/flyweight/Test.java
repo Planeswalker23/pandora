@@ -1,7 +1,7 @@
 package io.walkers.planes.pandora.design.patterns.flyweight;
 
 /**
- * @author 范逸东(东稚)
+ * @author Planeswalker23
  */
 public class Test {
 

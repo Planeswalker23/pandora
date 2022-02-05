@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author 范逸东(东稚)
+ * @author Planeswalker23
  */
 public class BaseInfoFactory {
 

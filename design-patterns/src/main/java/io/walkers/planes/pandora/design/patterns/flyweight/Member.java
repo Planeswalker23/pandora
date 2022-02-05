@@ -3,7 +3,7 @@ package io.walkers.planes.pandora.design.patterns.flyweight;
 /**
  * 会员
  *
- * @author 范逸东(东稚)
+ * @author Planeswalker23
  */
 public class Member {
     // 会员基础信息-享元角色

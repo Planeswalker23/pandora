@@ -3,7 +3,7 @@ package io.walkers.planes.pandora.design.patterns.flyweight;
 /**
  * 基础信息
  *
- * @author 范逸东(东稚)
+ * @author Planeswalker23
  */
 public class BaseInfo {
     // 会员名，不可更改，将作为享元工厂的 key
