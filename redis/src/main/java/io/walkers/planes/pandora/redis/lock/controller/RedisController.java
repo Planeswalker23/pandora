@@ -1,8 +1,8 @@
-package io.walkers.planes.pandora.redis.controller;
+package io.walkers.planes.pandora.redis.lock.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.walkers.planes.pandora.redis.entity.User;
+import io.walkers.planes.pandora.redis.lock.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

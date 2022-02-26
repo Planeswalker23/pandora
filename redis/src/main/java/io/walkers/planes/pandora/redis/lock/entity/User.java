@@ -1,4 +1,4 @@
-package io.walkers.planes.pandora.redis.entity;
+package io.walkers.planes.pandora.redis.lock.entity;
 
 import lombok.Data;
 

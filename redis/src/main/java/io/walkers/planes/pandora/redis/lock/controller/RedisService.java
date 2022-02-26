@@ -1,4 +1,4 @@
-package io.walkers.planes.pandora.redis.controller;
+package io.walkers.planes.pandora.redis.lock.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
