@@ -55,5 +55,8 @@ public class BitmapUtilTest {
         Long countPos0Result2 = bitmapUtil.bitPos(key, true, 1L, 2L);
         Assertions.assertEquals(-1L, countPos0Result2);
 
+        // bit to byte to String
+        String bitString = bitmapUtil.getBitString(key);
+        Assertions.assertEquals("01100001", bitString);
     }
 }

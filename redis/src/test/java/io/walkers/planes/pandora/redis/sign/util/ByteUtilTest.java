@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * @author planeswalker23
  * @date 2022/2/26
  */
-class ByteUtilTest {
+public class ByteUtilTest {
 
     @Test
     void getBooleanArrayFromByte() {

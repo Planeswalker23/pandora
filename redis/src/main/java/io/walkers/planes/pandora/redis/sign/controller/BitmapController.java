@@ -47,6 +47,6 @@ public class BitmapController {
 
     @GetMapping("/bitmap/getBitmap")
     public String getBitmap(String key) {
-        return bitmapUtil.getBitmapUsingString(key);
+        return bitmapUtil.getBitString(key);
     }
 }

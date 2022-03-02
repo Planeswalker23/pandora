@@ -133,7 +133,7 @@ public class BitmapUtil {
      * @param key 键
      * @return String
      */
-    public String getBitmapUsingString(String key) {
+    public String getBitString(String key) {
         String redisResult = redisTemplate.opsForValue().get(key);
         byte[] byteResult = redisResult == null ? null : redisResult.getBytes();
         String result = ByteUtil.getStringFormByteArray(byteResult);
