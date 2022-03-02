@@ -31,7 +31,7 @@ logs
 .DS_Store
 
 #test
-test/
+#test/
 
 # 字节码文件
 *.class

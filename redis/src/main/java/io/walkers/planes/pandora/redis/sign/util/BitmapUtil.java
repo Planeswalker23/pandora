@@ -26,7 +26,7 @@ public class BitmapUtil {
      * @param key 键
      * @return String
      */
-    private String get(String key) {
+    public String get(String key) {
         String result = redisTemplate.opsForValue().get(key);
         log.info("Bitmap GET operation successfully. Result following: key is {{}}, value is {{}}.", key, result);
         return result;
@@ -124,6 +124,20 @@ public class BitmapUtil {
     public Long bitPos(String key, boolean value, long start, long end) {
         Long result = redisTemplate.execute((RedisCallback<Long>) con -> con.bitPos(key.getBytes(), value, Range.open(start, end)));
         log.info("Bitmap BITPOS operation successfully. Result following: key is {{}}, value is {{}}, result is {{}}, startByteIndex is {}, endByteIndex is {}.", key, value, result, start, end);
+        return result;
+    }
+
+    /**
+     * 根据key获取整个位图的值，并转化为8位 0-1 String
+     *
+     * @param key 键
+     * @return String
+     */
+    public String getBitmapUsingString(String key) {
+        String redisResult = redisTemplate.opsForValue().get(key);
+        byte[] byteResult = redisResult == null ? null : redisResult.getBytes();
+        String result = ByteUtil.getStringFormByteArray(byteResult);
+        log.info("Bitmap GET operation successfully. Result following: key is {{}}, value is {{}}.", key, result);
         return result;
     }
 }
