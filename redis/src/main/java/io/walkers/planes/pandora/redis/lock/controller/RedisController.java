@@ -29,7 +29,7 @@ public class RedisController {
     @Autowired
     private RedisService redisService;
 
-    @GetMapping("/redis/get")
+    @GetMapping("/redis/getValueFromRedis")
     public String getValueFromRedis(String id) throws JsonProcessingException {
         // 从redis缓存中获得指定的数据
         String userString = redisTemplate.boundValueOps(id).get();
