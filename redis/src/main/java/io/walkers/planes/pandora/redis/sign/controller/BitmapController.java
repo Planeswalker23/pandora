@@ -1,8 +1,10 @@
 package io.walkers.planes.pandora.redis.sign.controller;
 
+import io.walkers.planes.pandora.redis.sign.service.SignService;
 import io.walkers.planes.pandora.redis.sign.util.BitmapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BitmapController {
 
+    @Autowired
+    private SignService signService;
     @Autowired
     private BitmapUtil bitmapUtil;
 
@@ -48,5 +52,20 @@ public class BitmapController {
     @GetMapping("/bitmap/getBitmap")
     public String getBitmap(String key) {
         return bitmapUtil.getBitString(key);
+    }
+
+    @PostMapping("/sign")
+    public Boolean sign(String userId) {
+        return signService.sign(userId);
+    }
+
+    @GetMapping("/getTotalSignDays")
+    public Long getTotalSignDays(String userId) {
+        return signService.getTotalSignDays(userId);
+    }
+
+    @GetMapping("/getSignRecordOfThisWeek")
+    public String getSignRecordOfThisWeek(String userId) {
+        return signService.getSignRecordOfThisWeek(userId);
     }
 }
