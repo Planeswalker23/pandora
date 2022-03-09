@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
+ * 位图工具类单元测试
+ *
  * @author planeswalker23
  * @date 2022/3/2
  */
@@ -77,5 +79,25 @@ public class BitmapUtilTest {
 
         String bitString = bitmapUtil.getBitString(key);
         Assertions.assertEquals(stringFormByte, bitString);
+    }
+
+    @Test
+    public void compareByteToString() {
+        String key = "a";
+        // 01100001
+        bitmapUtil.setBit(key, 0, false);
+        bitmapUtil.setBit(key, 1, true);
+        bitmapUtil.setBit(key, 2, true);
+        bitmapUtil.setBit(key, 3, false);
+        bitmapUtil.setBit(key, 4, false);
+        bitmapUtil.setBit(key, 5, false);
+        bitmapUtil.setBit(key, 6, false);
+        bitmapUtil.setBit(key, 7, true);
+
+        String bitString = bitmapUtil.getBitString2(8L, key);
+        Assertions.assertEquals("01100001", bitString);
+
+        String bitString2 = bitmapUtil.getBitString2(key);
+        Assertions.assertEquals("01100001", bitString2);
     }
 }

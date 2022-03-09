@@ -44,6 +44,16 @@ public class BitmapUtil {
     }
 
     /**
+     * 删除key
+     *
+     * @param key 键
+     */
+    public void delete(String key) {
+        redisTemplate.delete(key);
+        log.info("Bitmap DELETE operation successfully. Result following: key is {{}}.", key);
+    }
+
+    /**
      * 对位图中某一二进制位进行赋值
      *
      * @param key    键

@@ -44,14 +44,14 @@ public class SignService {
      * @param userId 用户ID
      * @return String
      */
-    private String buildBitmapKey(String userId) {
+    public String buildBitmapKey(String userId) {
         String key = String.format("sign:%s:%s", userId, LocalDateTime.now().getYear());
-        log.info("Redis Bitmap key of userId {} is {}", userId, key);
+        log.info("Redis Bitmap key of userId {} is {}.", userId, key);
         return key;
     }
 
     /**
-     * 计算累计签到天数
+     * 获取累计签到天数
      *
      * @param userId 用户ID
      * @return Long
@@ -61,7 +61,7 @@ public class SignService {
         String key = this.buildBitmapKey(userId);
         // 获取位图中二进制位值为1的总数
         Long result = bitmapUtil.bitCountTrue(key);
-        log.info("User which id is {} has {} days signed", userId, result);
+        log.info("User which id is {} has {} days signed.", userId, result);
         return result;
     }
 
@@ -77,10 +77,40 @@ public class SignService {
         // 获取整个签到记录
         String signRecord = bitmapUtil.getBitString(key);
         // 获取本周一的日期偏移量
-        long weekFistDayOfYear = DateUtil.getWeekFirstDayOfYear();
+        long weekFirstDayOfYear = DateUtil.getWeekFirstDayOfYear();
         // 获取本周的签到记录
-        String weekSignRecord = signRecord.substring((int) weekFistDayOfYear, (int) weekFistDayOfYear + 7);
-        log.info("User which id is {}, sign record is {}", userId, weekSignRecord);
+        String weekSignRecord = signRecord.substring((int) weekFirstDayOfYear, (int) weekFirstDayOfYear + 7);
+        log.info("User which id is {}, week sign record is {}.", userId, weekSignRecord);
+        return weekSignRecord;
+    }
+
+    /**
+     * 获取本月签到记录
+     *
+     * @param userId 用户ID
+     * @return String 二进制0-1字符串
+     */
+    public String getSignRecordOfThisMonth(String userId) {
+        // 构建Redis键
+        String key = this.buildBitmapKey(userId);
+        // 获取整个签到记录
+        String signRecord = bitmapUtil.getBitString(key);
+        // 获取本月1号的日期偏移量
+        long monthFirstDayOfYear = DateUtil.getMonthFirstDayOfYear();
+        // 填充缺失的后置二进制0值
+        // TODO 可以使用更高效的方法
+        long monthLastDayOfYear = (int) monthFirstDayOfYear + LocalDateTime.now().getMonth().maxLength();
+        if (signRecord.length() < monthLastDayOfYear) {
+            StringBuilder zero = new StringBuilder();
+            for (int i = 0; i < monthLastDayOfYear - signRecord.length(); i++) {
+                zero.append("0");
+            }
+            signRecord = signRecord + zero;
+        }
+
+        // 获取本周的签到记录
+        String weekSignRecord = signRecord.substring((int) monthFirstDayOfYear, (int) monthFirstDayOfYear + LocalDateTime.now().getMonth().maxLength());
+        log.info("User which id is {}, month sign record is {}.", userId, weekSignRecord);
         return weekSignRecord;
     }
 }

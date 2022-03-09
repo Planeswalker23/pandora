@@ -39,4 +39,12 @@ public class DateUtilTest {
         int value = LocalDateTime.now().getDayOfWeek().getValue();
         Assertions.assertEquals(weekFirstDayOfYear, dayOfYear - value + 1);
     }
+
+    @Test
+    void getMonthFirstDayOfYear() {
+        long monthFirstDayOfYear = DateUtil.getMonthFirstDayOfYear();
+        long dayOfYear = DateUtil.getDayOfYear();
+        int value = LocalDateTime.now().getDayOfMonth();
+        Assertions.assertEquals(monthFirstDayOfYear, dayOfYear - value + 1);
+    }
 }

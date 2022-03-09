@@ -77,4 +77,9 @@ public class BitmapController {
     public String getSignRecordOfThisWeek(String userId) {
         return signService.getSignRecordOfThisWeek(userId);
     }
+
+    @GetMapping("/getSignRecordOfThisMonth")
+    public String getSignRecordOfThisMonth(String userId) {
+        return signService.getSignRecordOfThisMonth(userId);
+    }
 }

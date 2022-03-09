@@ -38,7 +38,7 @@ public class DateUtil {
         }
         // 偏移量从0开始
         int dayOfYear = localDateTime.getDayOfYear() - 1;
-        log.info("Today is {}/{}/{}, count from 0 is No.{} of this year .", localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getDayOfMonth(), dayOfYear);
+        log.info("Today is {}/{}/{}, count from 0 is No.{} of this year.", localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getDayOfMonth(), dayOfYear);
         return dayOfYear;
     }
 
@@ -53,7 +53,22 @@ public class DateUtil {
         int dayOfWeek = today.getDayOfWeek().getValue();
         // 计算周一的偏移量
         long result = dayOfYear - dayOfWeek + 1;
-        log.info("WeekFirstDay is {}/{}/{}, count from 0 is No.{} of this year .", today.getYear(), today.getMonthValue(), today.getDayOfMonth() - dayOfWeek, result);
+        log.info("WeekFirstDay is {}/{}/{}, count from 0 is No.{} of this year.", today.getYear(), today.getMonthValue(), today.getDayOfMonth() - dayOfWeek, result);
+        return result;
+    }
+
+    /**
+     * 获取本月1号与1月1日的偏移量
+     *
+     * @return long
+     */
+    public static long getMonthFirstDayOfYear() {
+        LocalDateTime today = LocalDateTime.now();
+        long dayOfYear = getDayOfYear();
+        int dayOfMonth = today.getDayOfMonth();
+        // 计算本月1号一的偏移量
+        long result = dayOfYear - dayOfMonth + 1;
+        log.info("MonthFirstDay is {}/{}/{}, count from 0 is No.{} of this year.", today.getYear(), today.getMonthValue(), today.getDayOfMonth() + dayOfMonth, result);
         return result;
     }
 }
