@@ -49,6 +49,15 @@ public class BitmapController {
         return bitmapUtil.bitPos(key, value, start, end);
     }
 
+    @GetMapping("/bitmap/getBitStringOfVersion")
+    public String getBitStringOfVersion(String key, Integer version) {
+        if (version == 1) {
+            return bitmapUtil.getBitString2(7L, key);
+        } else {
+            return bitmapUtil.getBitString2(key);
+        }
+    }
+
     @GetMapping("/bitmap/getBitmap")
     public String getBitmap(String key) {
         return bitmapUtil.getBitString(key);

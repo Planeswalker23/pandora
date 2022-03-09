@@ -140,4 +140,42 @@ public class BitmapUtil {
         log.info("Bitmap GET operation successfully. Result following: key is {{}}, value is {{}}.", key, result);
         return result;
     }
+
+    public String getBitString2(Long days, String key) {
+        long start = System.currentTimeMillis();
+        // 拼接返回结果
+        StringBuilder result = new StringBuilder();
+        for (long offset = 0; offset < days; offset++) {
+            // 获取指定偏移位上的二进制值
+            Boolean booleanResult = redisTemplate.opsForValue().getBit(key, offset);
+            // 进行字符串0-1赋值
+            result.append(Boolean.TRUE.equals(booleanResult) ? "1" : "0");
+        }
+        log.info("Version1 cost: {}", System.currentTimeMillis() - start);
+        return result.toString();
+    }
+
+    public String getBitString2(String key) {
+        long start = System.currentTimeMillis();
+        // 获取 Redis 中对应 KEY 的值
+        String redisResult = redisTemplate.opsForValue().get(key);
+        // 将字符串转化为字节数组
+        byte[] byteResult = redisResult == null ? new byte[0] : redisResult.getBytes();
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < byteResult.length; i++) {
+            byte sourceByte = byteResult[i];
+            // 将字节数组中每一位转化为二进制
+            char[] charArray = new char[8];
+            for (int j = 7; j >= 0; j--) {
+                // 判定byte的最后一位是否为1，若为1，则是true；否则是false
+                charArray[j] = (sourceByte & 1) == 1 ? '1' : '0';
+                // byte右移一位
+                sourceByte = (byte) (sourceByte >> 1);
+            }
+            // 将转化结果二进制字符数组拼接到返回结果中
+            result.append(charArray);
+        }
+        log.info("Version1 cost: {}", System.currentTimeMillis() - start);
+        return result.toString();
+    }
 }
