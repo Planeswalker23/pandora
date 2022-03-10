@@ -138,7 +138,7 @@ public class SignService {
                 break;
             }
         }
-        log.info("User which id is {}, continuous sSign days is {}.", userId, result);
+        log.info("User which id is {}, continuous Sign days is {}.", userId, result);
         return result;
     }
 }
