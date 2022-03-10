@@ -52,7 +52,7 @@ public class BitmapController {
     @GetMapping("/bitmap/getBitStringOfVersion")
     public String getBitStringOfVersion(String key, Integer version) {
         if (version == 1) {
-            return bitmapUtil.getBitString2(7L, key);
+            return bitmapUtil.getBitString2(0L, 7L, key);
         } else {
             return bitmapUtil.getBitString2(key);
         }
@@ -81,5 +81,10 @@ public class BitmapController {
     @GetMapping("/getSignRecordOfThisMonth")
     public String getSignRecordOfThisMonth(String userId) {
         return signService.getSignRecordOfThisMonth(userId);
+    }
+
+    @GetMapping("/getContinuousSignDays")
+    public Long getContinuousSignDays(String userId) {
+        return signService.getContinuousSignDays(userId);
     }
 }

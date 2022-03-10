@@ -151,11 +151,11 @@ public class BitmapUtil {
         return result;
     }
 
-    public String getBitString2(Long days, String key) {
+    public String getBitString2(Long startOffset, Long endOffset, String key) {
         long start = System.currentTimeMillis();
         // 拼接返回结果
         StringBuilder result = new StringBuilder();
-        for (long offset = 0; offset < days; offset++) {
+        for (long offset = startOffset; offset < endOffset; offset++) {
             // 获取指定偏移位上的二进制值
             Boolean booleanResult = redisTemplate.opsForValue().getBit(key, offset);
             // 进行字符串0-1赋值

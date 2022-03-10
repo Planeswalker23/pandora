@@ -15,21 +15,21 @@ public class DateUtilTest {
 
     @Test
     void getDayOfYear() {
-        // 1.1 -> 0
+        // 1.1 -> 1
         long dayOfYear0 = DateUtil.getDayOfYear(2022, 1, 1);
-        Assertions.assertEquals(0, dayOfYear0);
+        Assertions.assertEquals(1, dayOfYear0);
 
-        // 2.1 -> 31
+        // 2.1 -> 32
         long dayOfYear31 = DateUtil.getDayOfYear(2022, 2, 1);
-        Assertions.assertEquals(31, dayOfYear31);
+        Assertions.assertEquals(32, dayOfYear31);
 
-        // 3.9 -> 67
+        // 3.9 -> 68
         long dayOfYear67 = DateUtil.getDayOfYear(2022, 3, 9);
-        Assertions.assertEquals(67, dayOfYear67);
+        Assertions.assertEquals(68, dayOfYear67);
 
-        // today -> 67
+        // today
         long dayOfYear = DateUtil.getDayOfYear();
-        Assertions.assertEquals(LocalDateTime.now().getDayOfYear() - 1, dayOfYear);
+        Assertions.assertEquals(LocalDateTime.now().getDayOfYear(), dayOfYear);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class DateUtilTest {
         long weekFirstDayOfYear = DateUtil.getWeekFirstDayOfYear();
         long dayOfYear = DateUtil.getDayOfYear();
         int value = LocalDateTime.now().getDayOfWeek().getValue();
-        Assertions.assertEquals(weekFirstDayOfYear, dayOfYear - value + 1);
+        Assertions.assertEquals(weekFirstDayOfYear, dayOfYear - value);
     }
 
     @Test
@@ -45,6 +45,6 @@ public class DateUtilTest {
         long monthFirstDayOfYear = DateUtil.getMonthFirstDayOfYear();
         long dayOfYear = DateUtil.getDayOfYear();
         int value = LocalDateTime.now().getDayOfMonth();
-        Assertions.assertEquals(monthFirstDayOfYear, dayOfYear - value + 1);
+        Assertions.assertEquals(monthFirstDayOfYear, dayOfYear - value);
     }
 }

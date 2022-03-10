@@ -94,7 +94,7 @@ public class BitmapUtilTest {
         bitmapUtil.setBit(key, 6, false);
         bitmapUtil.setBit(key, 7, true);
 
-        String bitString = bitmapUtil.getBitString2(8L, key);
+        String bitString = bitmapUtil.getBitString2(0L, 8L, key);
         Assertions.assertEquals("01100001", bitString);
 
         String bitString2 = bitmapUtil.getBitString2(key);
